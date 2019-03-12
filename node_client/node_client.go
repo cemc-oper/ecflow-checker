@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	pb "github.com/perillaroc/eclfow-client-go/ecflowclient"
+	pb "github.com/perillaroc/ecflow-client-go/ecflowclient"
 	"github.com/perillaroc/workflow-model-go"
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/encoding/gzip"
