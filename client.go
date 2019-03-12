@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "github.com/perillaroc/eclfow-client-go/ecflow_client"
+	pb "github.com/perillaroc/eclfow-client-go/ecflowclient"
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/encoding/gzip"
 	"log"
