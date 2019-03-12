@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	pb "github.com/perillaroc/eclfow-client-go/ecflowclient"
+	"github.com/perillaroc/workflow-model-go"
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/encoding/gzip"
 	"log"
@@ -34,8 +36,16 @@ func main() {
 	})
 
 	if err != nil {
-		log.Fatalf("Could not get status: %v", err)
+		log.Fatalf("Could not get status: %v\n", err)
 	}
 
-	fmt.Printf("node: %v", r.Node)
+	fmt.Printf("node: %v\n", r.Node)
+
+	var node workflowmodel.WorkflowNode
+	err = json.Unmarshal([]byte(r.Node), &node)
+	if err != nil {
+		log.Fatalf("json.Unmarshal failed: %v\n", err)
+	}
+
+	fmt.Printf("%s\n", node.Name)
 }
