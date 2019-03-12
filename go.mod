@@ -1,4 +1,4 @@
-module github.com/perillaroc/eclfow-collector-client-go
+module github.com/perillaroc/eclfow-client-go
 
 go 1.12
 
