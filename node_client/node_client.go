@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	pb "github.com/perillaroc/eclfow-client-go/ecflowclient"
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/encoding/gzip"
@@ -24,16 +25,17 @@ func main() {
 
 	ctx := context.Background()
 
-	r, err := c.CollectStatusRecords(ctx, &pb.StatusRequest{
+	r, err := c.CollectNode(ctx, &pb.NodeRequest{
 		Owner: "nwp_xp",
 		Repo:  "nwpc_pd_bk",
 		Host:  "10.40.143.18",
 		Port:  "31071",
+		Path:  "/meso_post/00/initial",
 	})
 
 	if err != nil {
 		log.Fatalf("Could not get status: %v", err)
 	}
 
-	log.Printf("Size of records: %d\n", len(r.StatusMap))
+	fmt.Printf("node: %v", r.Node)
 }
