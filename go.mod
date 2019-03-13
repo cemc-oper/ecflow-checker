@@ -26,7 +26,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/openzipkin/zipkin-go v0.1.5 // indirect
-	github.com/perillaroc/workflow-model-go v0.0.0-20190312133528-d500ecc05e96 // indirect
+	github.com/perillaroc/workflow-model-go v0.0.0-20190312133528-d500ecc05e96
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90 // indirect
 	github.com/prometheus/procfs v0.0.0-20190306233201-d0f344d83b0c // indirect
