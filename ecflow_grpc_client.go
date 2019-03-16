@@ -63,7 +63,8 @@ func (c *EcflowClient) CollectStatusRecords(owner string, repo string, host stri
 	}
 }
 
-func (c *EcflowClient) CollectNode(owner string, repo string, host string, port string, path string) {
+func (c *EcflowClient) CollectNode(
+	owner string, repo string, host string, port string, path string) (*workflowmodel.WorkflowNode, error) {
 	r, err := c.ServiceClient.CollectNode(c.Context, &pb.NodeRequest{
 		Owner: owner,
 		Repo:  repo,
@@ -73,7 +74,8 @@ func (c *EcflowClient) CollectNode(owner string, repo string, host string, port 
 	})
 
 	if err != nil {
-		log.Fatalf("Could not get status: %v\n", err)
+		err = fmt.Errorf("Could not get status: %v\n", err)
+		return nil, err
 	}
 
 	//fmt.Printf("node: %v\n", r.Node)
@@ -81,13 +83,8 @@ func (c *EcflowClient) CollectNode(owner string, repo string, host string, port 
 	var node workflowmodel.WorkflowNode
 	err = json.Unmarshal([]byte(r.Node), &node)
 	if err != nil {
-		log.Fatalf("json.Unmarshal failed: %v\n", err)
+		err = fmt.Errorf("json.Unmarshal failed: %v\n", err)
+		return nil, err
 	}
-
-	indentString, errIndentString := json.MarshalIndent(node, "", "  ")
-	if errIndentString != nil {
-		log.Fatalf("json.MarshalIndent failed: %v\n", errIndentString)
-	}
-
-	fmt.Printf("%s\n", indentString)
+	return &node, err
 }

@@ -21,12 +21,13 @@ require (
 	github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.8.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.1 // indirect
+	github.com/jinzhu/now v1.0.0 // indirect
 	github.com/kisielk/errcheck v1.2.0 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/openzipkin/zipkin-go v0.1.5 // indirect
-	github.com/perillaroc/workflow-model-go v0.0.0-20190312133528-d500ecc05e96
+	github.com/perillaroc/workflow-model-go v0.0.0-20190316033913-eac04f7cff90
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/prometheus/client_model v0.0.0-20190129233127-fd36f4220a90 // indirect
 	github.com/prometheus/procfs v0.0.0-20190306233201-d0f344d83b0c // indirect
@@ -48,6 +49,9 @@ require (
 	github.com/shurcooL/webdavfs v0.0.0-20181215192745-5988b2d638f6 // indirect
 	github.com/sirupsen/logrus v1.3.0 // indirect
 	github.com/stretchr/testify v1.3.0 // indirect
+	github.com/tidwall/gjson v1.2.1 // indirect
+	github.com/tidwall/match v1.0.1 // indirect
+	github.com/tidwall/pretty v0.0.0-20180105212114-65a9db5fad51 // indirect
 	go.opencensus.io v0.19.1 // indirect
 	go4.org v0.0.0-20190218023631-ce4c26f7be8e // indirect
 	golang.org/x/build v0.0.0-20190309003043-4067b185a9c7 // indirect

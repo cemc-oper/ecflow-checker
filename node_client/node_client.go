@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/perillaroc/ecflow-client-go"
 	"log"
 )
@@ -20,10 +21,15 @@ func main() {
 
 	defer client.Close()
 
-	client.CollectNode(
+	node, err := client.CollectNode(
 		"nwp_xp",
 		"nwpc_pd",
 		"login_b01",
 		"31071",
 		"/meso_post/00/initial")
+	if err != nil {
+		log.Fatalf("collect node error: %v", err)
+	}
+
+	fmt.Printf("Node Name: %s\n", node.Name)
 }
