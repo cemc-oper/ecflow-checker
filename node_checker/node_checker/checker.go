@@ -18,11 +18,21 @@ type NodeChecker struct {
 	Port     string
 	NodePath string
 
-	Trigger
+	Triggers []Trigger
 
 	CheckItems []NodeCheckItem
 
 	node *workflowmodel.WorkflowNode
+}
+
+func (checker *NodeChecker) Evaluate() bool {
+	flag := true
+	for _, trigger := range checker.Triggers {
+		if !trigger.Evaluate() {
+			flag = false
+		}
+	}
+	return flag
 }
 
 func (checker *NodeChecker) FetchWorkflowNode() error {

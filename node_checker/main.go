@@ -32,9 +32,11 @@ func main() {
 		Port:     "31071",
 		NodePath: "/gmf_grapes_gfs_v2.2_post/00",
 
-		Trigger: &node_checker.TimeTrigger{
-			BeginTime: beginTime,
-			EndTime:   endTime,
+		Triggers: []node_checker.Trigger{
+			&node_checker.TimeTrigger{
+				BeginTime: beginTime,
+				EndTime:   endTime,
+			},
 		},
 
 		CheckItems: []node_checker.NodeCheckItem{
