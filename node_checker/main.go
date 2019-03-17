@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/jinzhu/now"
 	"github.com/perillaroc/ecflow-client-go/node_checker/node_checker"
 	"github.com/perillaroc/workflow-model-go"
 	"log"
@@ -13,15 +12,17 @@ func main() {
 	var err error
 	var beginTime, endTime time.Time
 
-	beginTime, err = now.Parse("03:42")
+	beginTime, err = node_checker.ParseClockUTC("03:42")
 	if err != nil {
 		log.Fatalf("beginTime error: %v", err)
 	}
+	log.Printf("beginTime: %v", beginTime)
 
-	endTime, err = now.Parse("23:59")
+	endTime, err = node_checker.ParseClockUTC("23:59")
 	if err != nil {
 		log.Fatalf("endTime error: %v", err)
 	}
+	log.Printf("endTime: %v", endTime)
 
 	checker := node_checker.NodeChecker{
 		Target:   "10.40.140.18:31181",
@@ -31,7 +32,7 @@ func main() {
 		Port:     "31071",
 		NodePath: "/gmf_grapes_gfs_v2.2_post/00",
 
-		TimeTrigger: node_checker.TimeTrigger{
+		Trigger: &node_checker.TimeTrigger{
 			BeginTime: beginTime,
 			EndTime:   endTime,
 		},

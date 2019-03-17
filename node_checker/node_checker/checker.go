@@ -3,22 +3,11 @@ package node_checker
 import (
 	"github.com/perillaroc/ecflow-client-go"
 	"github.com/perillaroc/workflow-model-go"
-	"time"
 )
 
 type NodeCheckItem struct {
 	workflowmodel.WorkflowNodeCondition
 	FitFlag bool
-}
-
-type TimeTrigger struct {
-	BeginTime time.Time
-	EndTime   time.Time
-}
-
-func (t *TimeTrigger) Evaluate() bool {
-	current := time.Now()
-	return current.After(t.BeginTime) && current.Before(t.EndTime)
 }
 
 type NodeChecker struct {
@@ -29,7 +18,7 @@ type NodeChecker struct {
 	Port     string
 	NodePath string
 
-	TimeTrigger
+	Trigger
 
 	CheckItems []NodeCheckItem
 
