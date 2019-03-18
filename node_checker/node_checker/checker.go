@@ -10,12 +10,18 @@ type NodeCheckItem struct {
 	FitFlag bool
 }
 
+type EcflowServerConfig struct {
+	Target string
+	Owner  string
+	Repo   string
+	Host   string
+	Port   string
+}
+
 type NodeChecker struct {
-	Target   string
-	Owner    string
-	Repo     string
-	Host     string
-	Port     string
+	Name string
+	EcflowServerConfig
+
 	NodePath string
 
 	Triggers []Trigger

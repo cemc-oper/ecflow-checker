@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func main() {
+func example() {
 	var err error
 	var beginTime, endTime time.Time
 
@@ -25,11 +25,13 @@ func main() {
 	log.Printf("endTime: %v", endTime)
 
 	checker := node_checker.NodeChecker{
-		Target:   "10.40.140.18:31181",
-		Owner:    "nwp_xp",
-		Repo:     "nwpc_pd",
-		Host:     "login_b01",
-		Port:     "31071",
+		EcflowServerConfig: node_checker.EcflowServerConfig{
+			Target: "10.40.140.18:31181",
+			Owner:  "nwp_xp",
+			Repo:   "nwpc_pd",
+			Host:   "login_b01",
+			Port:   "31071",
+		},
 		NodePath: "/gmf_grapes_gfs_v2.2_post/00",
 
 		Triggers: []node_checker.Trigger{
@@ -67,4 +69,8 @@ func main() {
 	isFit := checker.IsFit()
 
 	fmt.Printf("isFit = %t", isFit)
+}
+
+func main() {
+	node_checker.RunCheckTasks()
 }
