@@ -45,7 +45,7 @@ func (config *Config) ReadEcflowServerConfig() {
 }
 
 func (config *Config) ReadCheckTaskList() error {
-	taskListSection := config.Config["check_task_list"].([]interface{})
+	taskListSection := config.Config["task_list"].([]interface{})
 	for _, item := range taskListSection {
 		taskConfig := item.(ConfigDict)
 
