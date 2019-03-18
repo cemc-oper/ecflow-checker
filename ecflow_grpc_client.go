@@ -78,7 +78,10 @@ func (c *EcflowClient) CollectNode(
 		return nil, err
 	}
 
-	//fmt.Printf("node: %v\n", r.Node)
+	if r.ResponseStatus != nil && r.ResponseStatus.HasError {
+		err = fmt.Errorf("CollectNode has error: %s\n", r.ResponseStatus.ErrorString)
+		return nil, err
+	}
 
 	var node workflowmodel.WorkflowNode
 	err = json.Unmarshal([]byte(r.Node), &node)
