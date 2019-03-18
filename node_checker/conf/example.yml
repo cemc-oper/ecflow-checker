@@ -1,0 +1,59 @@
+global:
+  ecflow_server:
+    grpc_target: grpc target
+    owner: owner
+    repo: repo
+    host: host
+    port: port
+
+task_list:
+  -
+    name: gmf_grapes_gfs_v2.3 00H
+    node_path: /gmf_grapes_gfs_v2.3/00
+    trigger:
+      -
+        type: time
+        begin_time: 03:42
+        end_time: 23:59
+
+    check_list:
+      -
+        type: variable
+        name: ECF_DATE
+        value:
+          type: date
+          operator: equal
+          fields: current
+      -
+        type: status
+        value:
+          operator: in
+          fields:
+            - submitted
+            - active
+            - complete
+  -
+    name: obs_reg 00H
+    node_path: /obs_reg/00
+    trigger:
+      -
+        type: time
+        begin_time: 03:11
+        end_time: 23:59
+
+    check_list:
+      -
+        type: variable
+        name: ECF_DATE
+        value:
+          type: date
+          operator: equal
+          fields: current
+      -
+        type: status
+        value:
+          operator: in
+          fields:
+            - submitted
+            - active
+            - complete
