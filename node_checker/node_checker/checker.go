@@ -32,10 +32,10 @@ type NodeChecker struct {
 }
 
 func (checker *NodeChecker) Evaluate() bool {
-	flag := true
+	flag := false
 	for _, trigger := range checker.Triggers {
-		if !trigger.Evaluate() {
-			flag = false
+		if trigger.Evaluate() {
+			flag = true
 		}
 	}
 	return flag
