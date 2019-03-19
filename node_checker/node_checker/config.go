@@ -11,6 +11,14 @@ import (
 type ConfigDict map[interface{}]interface{}
 type ConfigArray []interface{}
 
+type EcflowServerConfig struct {
+	Target string
+	Owner  string
+	Repo   string
+	Host   string
+	Port   string
+}
+
 type Config struct {
 	EcflowConfig *EcflowServerConfig
 	Config       ConfigDict

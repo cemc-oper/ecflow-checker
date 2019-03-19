@@ -5,7 +5,7 @@ import "github.com/perillaroc/workflow-model-go"
 type TriggerStatus uint
 
 const (
-	Unknown = iota
+	Unknown TriggerStatus = iota
 	Fit
 	UnFit
 )
@@ -13,14 +13,6 @@ const (
 type NodeCheckItem struct {
 	workflowmodel.WorkflowNodeCondition
 	FitFlag bool
-}
-
-type EcflowServerConfig struct {
-	Target string
-	Owner  string
-	Repo   string
-	Host   string
-	Port   string
 }
 
 type NodeCheckTask struct {
