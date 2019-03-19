@@ -10,50 +10,75 @@ task_list:
   -
     name: gmf_grapes_gfs_v2.3 00H
     node_path: /gmf_grapes_gfs_v2.3/00
-    trigger:
-      -
-        type: time
-        begin_time: 03:42
-        end_time: 23:59
 
-    check_list:
+    check_tasks:
       -
-        type: variable
-        name: ECF_DATE
-        value:
-          type: date
-          operator: equal
-          fields: current
+        name: start
+        trigger:
+          - type: time
+            begin_time: 03:42
+            end_time: 23:59
+        check_list:
+          -
+            type: variable
+            name: ECF_DATE
+            value:
+              type: date
+              operator: equal
+              fields: current
+          -
+            type: status
+            value:
+              operator: in
+              fields:
+                - submitted
+                - active
+                - complete
       -
-        type: status
-        value:
-          operator: in
-          fields:
-            - submitted
-            - active
-            - complete
+        name: complete
+        trigger:
+          - type: time
+            begin_time: 09:40
+            end_time: 23:59
+        check_list:
+          -
+            type: variable
+            name: ECF_DATE
+            value:
+              type: date
+              operator: equal
+              fields: current
+          -
+            type: status
+            value:
+              operator: equal
+              fields: complete
+
   -
     name: obs_reg 00H
     node_path: /obs_reg/00
-    trigger:
+    check_tasks:
       -
-        type: time
-        begin_time: 03:11
-        end_time: 23:59
+        name: start
+        trigger:
+          -
+            type: time
+            begin_time: 03:11
+            end_time: 23:59
 
-    check_list:
-      -
-        type: variable
-        name: ECF_DATE
-        value:
-          type: date
-          operator: equal
-          fields: current
-      -
-        type: status
-        value:
-          operator: in
-          fields:
-            - submitted
-            - active
-            - complete
+        check_list:
+          -
+            type: variable
+            name: ECF_DATE
+            value:
+              type: date
+              operator: equal
+              fields: current
+          -
+            type: status
+            value:
+              operator: in
+              fields:
+                - submitted
+                - active
+                - complete

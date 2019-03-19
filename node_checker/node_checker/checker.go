@@ -3,20 +3,8 @@ package node_checker
 import (
 	"github.com/perillaroc/ecflow-client-go"
 	"github.com/perillaroc/workflow-model-go"
+	"log"
 )
-
-type NodeCheckItem struct {
-	workflowmodel.WorkflowNodeCondition
-	FitFlag bool
-}
-
-type EcflowServerConfig struct {
-	Target string
-	Owner  string
-	Repo   string
-	Host   string
-	Port   string
-}
 
 type NodeChecker struct {
 	Name string
@@ -24,21 +12,9 @@ type NodeChecker struct {
 
 	NodePath string
 
-	Triggers []Trigger
-
-	CheckItems []NodeCheckItem
+	CheckTasks []NodeCheckTask
 
 	node *workflowmodel.WorkflowNode
-}
-
-func (checker *NodeChecker) Evaluate() bool {
-	flag := false
-	for _, trigger := range checker.Triggers {
-		if trigger.Evaluate() {
-			flag = true
-		}
-	}
-	return flag
 }
 
 func (checker *NodeChecker) FetchWorkflowNode() error {
@@ -58,16 +34,24 @@ func (checker *NodeChecker) FetchWorkflowNode() error {
 	return err
 }
 
-func (checker *NodeChecker) IsFit() bool {
-	if checker.node == nil {
-		return false
-	}
-	isFit := true
-	for _, checkItem := range checker.CheckItems {
-		checkItem.FitFlag = checkItem.IsFit(checker.node)
-		if !checkItem.FitFlag {
-			isFit = false
+func (checker *NodeChecker) EvaluateAll() bool {
+	hasFitTrigger := false
+	for _, checkTask := range checker.CheckTasks {
+		flag := checkTask.Evaluate()
+		if flag {
+			hasFitTrigger = true
 		}
 	}
-	return isFit
+	return hasFitTrigger
+}
+
+func (checker *NodeChecker) CheckFitAll() {
+	for _, checkTask := range checker.CheckTasks {
+		if checkTask.TriggerFlag == Fit {
+
+		}
+		isFit := checkTask.IsFit(checker.node)
+		log.Printf("[%s][%s] isFit = %t\n", checker.Name, checkTask.Name, isFit)
+	}
+
 }

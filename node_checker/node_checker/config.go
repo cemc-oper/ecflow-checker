@@ -52,23 +52,35 @@ func (config *Config) ReadCheckTaskList() error {
 		checker := &NodeChecker{}
 		checker.Name = taskConfig["name"].(string)
 		checker.NodePath = taskConfig["node_path"].(string)
+
 		if config.EcflowConfig != nil {
 			checker.EcflowServerConfig = *config.EcflowConfig
 		}
 
-		triggersConfig := taskConfig["trigger"].([]interface{})
-		config.readTriggers(triggersConfig, checker)
-
-		checkListConfig := taskConfig["check_list"].([]interface{})
-		config.readCheckList(checkListConfig, checker)
-
+		config.readCheckTasks(taskConfig["check_tasks"].([]interface{}), checker)
 		config.Checkers = append(config.Checkers, checker)
 	}
 
 	return nil
 }
 
-func (config *Config) readTriggers(triggersConfig ConfigArray, checker *NodeChecker) {
+func (config *Config) readCheckTasks(checkTasksConfig ConfigArray, checker *NodeChecker) {
+	for _, checkTaskConfig := range checkTasksConfig {
+		checkTaskConfigDict := checkTaskConfig.(ConfigDict)
+		checkTask := &NodeCheckTask{}
+
+		checkTask.Name = checkTaskConfigDict["name"].(string)
+
+		triggersConfig := checkTaskConfigDict["trigger"].([]interface{})
+		config.readTriggers(triggersConfig, checkTask)
+
+		checkListConfig := checkTaskConfigDict["check_list"].([]interface{})
+		config.readCheckList(checkListConfig, checkTask)
+		checker.CheckTasks = append(checker.CheckTasks, *checkTask)
+	}
+}
+
+func (config *Config) readTriggers(triggersConfig ConfigArray, checkTask *NodeCheckTask) {
 	for _, triggerConfig := range triggersConfig {
 		triggerConfigDict := triggerConfig.(ConfigDict)
 		triggerType := triggerConfigDict["type"]
@@ -86,12 +98,12 @@ func (config *Config) readTriggers(triggersConfig ConfigArray, checker *NodeChec
 				BeginTime: beginTime,
 				EndTime:   endTime,
 			}
-			checker.Triggers = append(checker.Triggers, trigger)
+			checkTask.Triggers = append(checkTask.Triggers, trigger)
 		}
 	}
 }
 
-func (config *Config) readCheckList(checkListConfig ConfigArray, checker *NodeChecker) {
+func (config *Config) readCheckList(checkListConfig ConfigArray, checkTask *NodeCheckTask) {
 	for _, item := range checkListConfig {
 		checkConfig := item.(ConfigDict)
 		checkType := checkConfig["type"].(string)
@@ -100,13 +112,13 @@ func (config *Config) readCheckList(checkListConfig ConfigArray, checker *NodeCh
 			if err != nil {
 				panic(err)
 			}
-			checker.CheckItems = append(checker.CheckItems, *variableCheckItem)
+			checkTask.CheckItems = append(checkTask.CheckItems, *variableCheckItem)
 		} else if checkType == "status" {
 			statusCheckItem, err := config.readStatusCheck(checkConfig)
 			if err != nil {
 				panic(err)
 			}
-			checker.CheckItems = append(checker.CheckItems, *statusCheckItem)
+			checkTask.CheckItems = append(checkTask.CheckItems, *statusCheckItem)
 		}
 	}
 }

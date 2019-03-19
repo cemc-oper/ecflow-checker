@@ -5,8 +5,8 @@ import (
 )
 
 func RunNodeChecker(checker *NodeChecker) {
-	if !checker.Evaluate() {
-		log.Printf("%s: time trigger is not fit", checker.Name)
+	if !checker.EvaluateAll() {
+		log.Printf("%s: all triggers is not fit", checker.Name)
 		return
 	}
 
@@ -16,9 +16,7 @@ func RunNodeChecker(checker *NodeChecker) {
 		return
 	}
 
-	isFit := checker.IsFit()
-
-	log.Printf("%s: isFit = %t\n", checker.Name, isFit)
+	checker.CheckFitAll()
 }
 
 func RunCheckTasks() {
