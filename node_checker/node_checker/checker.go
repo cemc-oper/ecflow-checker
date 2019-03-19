@@ -36,9 +36,9 @@ func (checker *NodeChecker) FetchWorkflowNode() error {
 
 func (checker *NodeChecker) EvaluateAll() bool {
 	hasFitTrigger := false
-	for _, checkTask := range checker.CheckTasks {
-		flag := checkTask.Evaluate()
-		if flag {
+	for i := range checker.CheckTasks {
+		triggerFlag := checker.CheckTasks[i].Evaluate()
+		if triggerFlag == EvaluatedFit {
 			hasFitTrigger = true
 		}
 	}
@@ -46,12 +46,11 @@ func (checker *NodeChecker) EvaluateAll() bool {
 }
 
 func (checker *NodeChecker) CheckFitAll() {
-	for _, checkTask := range checker.CheckTasks {
-		if checkTask.TriggerFlag == Fit {
-
+	for i := range checker.CheckTasks {
+		if checker.CheckTasks[i].TriggerFlag == EvaluatedFit {
+			isFit := checker.CheckTasks[i].IsFit(checker.node)
+			log.Printf("[%s][%s] isFit = %s\n", checker.Name, checker.CheckTasks[i].Name, isFit)
 		}
-		isFit := checkTask.IsFit(checker.node)
-		log.Printf("[%s][%s] isFit = %t\n", checker.Name, checkTask.Name, isFit)
 	}
 
 }

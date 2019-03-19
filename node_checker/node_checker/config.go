@@ -75,7 +75,9 @@ func (config *Config) ReadCheckTaskList() error {
 func (config *Config) readCheckTasks(checkTasksConfig ConfigArray, checker *NodeChecker) {
 	for _, checkTaskConfig := range checkTasksConfig {
 		checkTaskConfigDict := checkTaskConfig.(ConfigDict)
-		checkTask := &NodeCheckTask{}
+		checkTask := &NodeCheckTask{
+			TriggerFlag: UnEvaluated,
+		}
 
 		checkTask.Name = checkTaskConfigDict["name"].(string)
 
@@ -147,7 +149,7 @@ func (config *Config) readStatusCheck(checkConfig ConfigDict) (*NodeCheckItem, e
 					ExpectedValue: workflowmodel.GetNodeStatus(value),
 				},
 			},
-			FitFlag: false,
+			ConditionFlag: UnChecked,
 		}
 
 	} else if valueOperator == "in" {
@@ -163,7 +165,7 @@ func (config *Config) readStatusCheck(checkConfig ConfigDict) (*NodeCheckItem, e
 					ExpectedValues: statusArray,
 				},
 			},
-			FitFlag: false,
+			ConditionFlag: UnChecked,
 		}
 
 	} else {
@@ -197,7 +199,7 @@ func (config *Config) readVariableCheck(checkConfig ConfigDict) (*NodeCheckItem,
 					ExpectedValue: value,
 				},
 			},
-			FitFlag: false,
+			ConditionFlag: UnChecked,
 		}
 
 	} else {

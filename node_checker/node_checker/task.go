@@ -5,14 +5,48 @@ import "github.com/perillaroc/workflow-model-go"
 type TriggerStatus uint
 
 const (
-	Unknown TriggerStatus = iota
-	Fit
-	UnFit
+	UnEvaluated TriggerStatus = iota
+	EvaluatedFit
+	EvaluatedUnFit
 )
+
+func (status TriggerStatus) String() string {
+	switch status {
+	case UnEvaluated:
+		return "UnEvaluated"
+	case EvaluatedFit:
+		return "EvaluatedFit"
+	case EvaluatedUnFit:
+		return "EvaluatedUnFit"
+	default:
+		return "Unknown"
+	}
+}
+
+type ConditionStatus uint
+
+const (
+	UnChecked ConditionStatus = iota
+	ConditionFit
+	ConditionUnFit
+)
+
+func (status ConditionStatus) String() string {
+	switch status {
+	case UnChecked:
+		return "UnChecked"
+	case ConditionFit:
+		return "ConditionFit"
+	case ConditionUnFit:
+		return "ConditionUnFit"
+	default:
+		return "Unknown"
+	}
+}
 
 type NodeCheckItem struct {
 	workflowmodel.WorkflowNodeCondition
-	FitFlag bool
+	ConditionFlag ConditionStatus
 }
 
 type NodeCheckTask struct {
@@ -23,30 +57,29 @@ type NodeCheckTask struct {
 	TriggerFlag TriggerStatus
 }
 
-func (task *NodeCheckTask) Evaluate() bool {
-	flag := false
-	for _, trigger := range task.Triggers {
-		if trigger.Evaluate() {
-			task.TriggerFlag = Fit
-			flag = true
+func (task *NodeCheckTask) Evaluate() TriggerStatus {
+	flag := EvaluatedUnFit
+	for i := range task.Triggers {
+		if task.Triggers[i].Evaluate() {
+			task.TriggerFlag = EvaluatedFit
+			flag = EvaluatedFit
 		}
 	}
-	if !flag {
-		task.TriggerFlag = UnFit
-	}
+	task.TriggerFlag = flag
 	return flag
 }
 
-func (task *NodeCheckTask) IsFit(node *workflowmodel.WorkflowNode) bool {
+func (task *NodeCheckTask) IsFit(node *workflowmodel.WorkflowNode) ConditionStatus {
 	if node == nil {
-		return false
+		return UnChecked
 	}
-	isFit := true
-	for _, checkItem := range task.CheckItems {
-		checkItem.FitFlag = checkItem.IsFit(node)
-		if !checkItem.FitFlag {
-			isFit = false
+	conditionFit := ConditionFit
+	for i := range task.CheckItems {
+		flag := task.CheckItems[i].IsFit(node)
+		if !flag {
+			conditionFit = ConditionUnFit
 		}
+		task.CheckItems[i].ConditionFlag = ConditionUnFit
 	}
-	return isFit
+	return conditionFit
 }
