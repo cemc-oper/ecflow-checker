@@ -12,6 +12,6 @@ type TimeTrigger struct {
 }
 
 func (t *TimeTrigger) Evaluate() bool {
-	current := time.Now()
+	current := time.Now().UTC()
 	return current.After(t.BeginTime) && current.Before(t.EndTime)
 }
