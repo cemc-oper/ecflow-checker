@@ -45,10 +45,10 @@ func (checker *NodeChecker) EvaluateAll() bool {
 	return hasFitTrigger
 }
 
-func (checker *NodeChecker) CheckFitAll() {
+func (checker *NodeChecker) CheckAll() {
 	for i := range checker.CheckTasks {
 		if checker.CheckTasks[i].TriggerFlag == EvaluatedFit {
-			isFit := checker.CheckTasks[i].IsFit(checker.node)
+			isFit := checker.CheckTasks[i].Check(checker.node)
 			log.Printf("[%s][%s] isFit = %s\n", checker.Name, checker.CheckTasks[i].Name, isFit)
 		}
 	}

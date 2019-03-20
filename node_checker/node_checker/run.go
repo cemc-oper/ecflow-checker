@@ -16,12 +16,12 @@ func RunNodeChecker(checker *NodeChecker) {
 		return
 	}
 
-	checker.CheckFitAll()
+	checker.CheckAll()
 }
 
 func RunCheckTasks() {
 	config := Config{}
-	err := config.ReadConfig()
+	err := config.ReadConfig("./dist/conf/nwpc_op.yml")
 	if err != nil {
 		panic(err)
 	}

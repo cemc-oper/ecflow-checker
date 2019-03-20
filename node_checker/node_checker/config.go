@@ -24,8 +24,8 @@ type Config struct {
 	Checkers     []*NodeChecker
 }
 
-func (config *Config) ReadConfig() error {
-	data, err := ioutil.ReadFile("./dist/conf/nwpc_op.yml")
+func (config *Config) ReadConfig(path string) error {
+	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err
 	}
@@ -121,13 +121,13 @@ func (config *Config) readCheckList(checkListConfig ConfigArray, checkTask *Node
 			if err != nil {
 				panic(err)
 			}
-			checkTask.CheckItems = append(checkTask.CheckItems, *variableCheckItem)
+			checkTask.NodeCheckItems = append(checkTask.NodeCheckItems, *variableCheckItem)
 		} else if checkType == "status" {
 			statusCheckItem, err := config.readStatusCheck(checkConfig)
 			if err != nil {
 				panic(err)
 			}
-			checkTask.CheckItems = append(checkTask.CheckItems, *statusCheckItem)
+			checkTask.NodeCheckItems = append(checkTask.NodeCheckItems, *statusCheckItem)
 		}
 	}
 }

@@ -2,15 +2,10 @@ package node_checker
 
 import "github.com/perillaroc/workflow-model-go"
 
-type NodeCheckItem struct {
-	workflowmodel.WorkflowNodeCondition
-	ConditionFlag ConditionStatus
-}
-
 type NodeCheckTask struct {
-	Name       string
-	Triggers   []Trigger
-	CheckItems []NodeCheckItem
+	Name           string
+	Triggers       []Trigger
+	NodeCheckItems []NodeCheckItem
 
 	TriggerFlag TriggerStatus
 }
@@ -27,17 +22,26 @@ func (task *NodeCheckTask) Evaluate() TriggerStatus {
 	return flag
 }
 
-func (task *NodeCheckTask) IsFit(node *workflowmodel.WorkflowNode) ConditionStatus {
+func (task *NodeCheckTask) Check(node *workflowmodel.WorkflowNode) ConditionStatus {
 	if node == nil {
 		return UnChecked
 	}
 	conditionFit := ConditionFit
-	for i := range task.CheckItems {
-		flag := task.CheckItems[i].IsFit(node)
-		if !flag {
+	for i := range task.NodeCheckItems {
+		task.NodeCheckItems[i].CheckCondition(node)
+		if task.NodeCheckItems[i].ConditionFlag == ConditionUnFit {
 			conditionFit = ConditionUnFit
 		}
-		task.CheckItems[i].ConditionFlag = ConditionUnFit
 	}
 	return conditionFit
+}
+
+func (task *NodeCheckTask) IsAllFit() ConditionStatus {
+	conditionFlag := ConditionFit
+	for i := range task.NodeCheckItems {
+		if task.NodeCheckItems[i].ConditionFlag == ConditionUnFit {
+			conditionFlag = ConditionUnFit
+		}
+	}
+	return conditionFlag
 }
