@@ -13,3 +13,14 @@ func ParseClockUTC(s string) (time.Time, error) {
 	result, err := time.Parse("2006-01-02 15:04 MST", dateString)
 	return result, err
 }
+
+func ParseDateValue(value string) string {
+	result := value
+	if result == "today" {
+		result = time.Now().UTC().Format("20060102")
+	} else if result == "yesterday" {
+		result = time.Now().UTC().AddDate(0, 0, -1).Format("20060102")
+	}
+
+	return result
+}

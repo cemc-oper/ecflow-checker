@@ -5,7 +5,6 @@ import (
 	"github.com/perillaroc/workflow-model-go"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"time"
 )
 
 type ConfigDict map[interface{}]interface{}
@@ -187,9 +186,7 @@ func (config *Config) readVariableCheck(checkConfig ConfigDict) (*NodeCheckItem,
 	if valueOperator == "equal" {
 		value := valueFields.(string)
 		if valueType == "date" {
-			if value == "current" {
-				value = time.Now().Format("20060102")
-			}
+			value = ParseDateValue(value)
 		}
 
 		checkItem = &NodeCheckItem{
