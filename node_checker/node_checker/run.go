@@ -4,21 +4,6 @@ import (
 	"log"
 )
 
-func RunNodeChecker(checker *NodeChecker) {
-	if !checker.EvaluateAll() {
-		log.Printf("%s: all triggers is not fit", checker.Name)
-		return
-	}
-
-	err := checker.FetchWorkflowNode()
-	if err != nil {
-		log.Printf("%s: fetch node failed: %v", checker.Name, err)
-		return
-	}
-
-	checker.CheckAll()
-}
-
 func RunCheckTasks() {
 	config := Config{}
 	err := config.ReadConfig("./dist/conf/nwpc_op.yml")
@@ -37,4 +22,19 @@ func RunCheckTasks() {
 	for _, checker := range checkTasks {
 		RunNodeChecker(checker)
 	}
+}
+
+func RunNodeChecker(checker *NodeChecker) {
+	if !checker.EvaluateAll() {
+		log.Printf("%s: all triggers is not fit", checker.Name)
+		return
+	}
+
+	err := checker.FetchWorkflowNode()
+	if err != nil {
+		log.Printf("%s: fetch node failed: %v", checker.Name, err)
+		return
+	}
+
+	checker.CheckAll()
 }

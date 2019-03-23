@@ -1,9 +1,9 @@
 package node_checker
 
 import (
+	"fmt"
 	"github.com/perillaroc/ecflow-client-go"
 	"github.com/perillaroc/workflow-model-go"
-	"log"
 )
 
 type NodeChecker struct {
@@ -46,11 +46,14 @@ func (checker *NodeChecker) EvaluateAll() bool {
 }
 
 func (checker *NodeChecker) CheckAll() {
+	fmt.Printf("%s:\n", checker.Name)
 	for i := range checker.CheckTasks {
 		if checker.CheckTasks[i].TriggerFlag == EvaluatedFit {
-			isFit := checker.CheckTasks[i].Check(checker.node)
-			log.Printf("[%s][%s] isFit = %s\n", checker.Name, checker.CheckTasks[i].Name, isFit)
+			checker.CheckTasks[i].Check(checker.node)
+			fmt.Printf("  [%s] Checking...Pass\n", checker.CheckTasks[i].Name)
+		} else {
+			fmt.Printf("  [%s] Ignore\n", checker.CheckTasks[i].Name)
 		}
 	}
-
+	fmt.Println()
 }
