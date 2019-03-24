@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/perillaroc/ecflow-client-go/node_checker/node_checker"
+	"github.com/perillaroc/ecflow-client-go/ecflow_checker/node_checker"
 	"github.com/spf13/cobra"
 )
 
