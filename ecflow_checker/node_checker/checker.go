@@ -49,11 +49,16 @@ func (checker *NodeChecker) CheckAll() {
 	fmt.Printf("%s:\n", bold(checker.Name))
 	for i := range checker.CheckTasks {
 		if checker.CheckTasks[i].TriggerFlag == EvaluatedFit {
-			checker.CheckTasks[i].Check(checker.node)
-			fmt.Printf("  [%s] Checking for %s\n", green("Pass"), checker.CheckTasks[i].Name)
+			condition := checker.CheckTasks[i].Check(checker.node)
+			var mark = blue("☐")
+			if condition == ConditionFit {
+				mark = green("✔")
+			} else if condition == ConditionUnFit {
+				mark = red("✗")
+			}
+			fmt.Printf("[%s] Checking for %s\n", mark, checker.CheckTasks[i].Name)
 		} else {
-			fmt.Printf("  [%s] Checking for %s\n", blue("Ignore"), checker.CheckTasks[i].Name)
+			fmt.Printf("[%s] Checking for %s\n", blue("━"), checker.CheckTasks[i].Name)
 		}
 	}
-	fmt.Println()
 }
