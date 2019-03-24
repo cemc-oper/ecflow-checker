@@ -46,13 +46,13 @@ func (checker *NodeChecker) EvaluateAll() bool {
 }
 
 func (checker *NodeChecker) CheckAll() {
-	fmt.Printf("%s:\n", checker.Name)
+	fmt.Printf("%s:\n", bold(checker.Name))
 	for i := range checker.CheckTasks {
 		if checker.CheckTasks[i].TriggerFlag == EvaluatedFit {
 			checker.CheckTasks[i].Check(checker.node)
-			fmt.Printf("  [%s] Checking...Pass\n", checker.CheckTasks[i].Name)
+			fmt.Printf("  [%s] Checking for %s\n", green("Pass"), checker.CheckTasks[i].Name)
 		} else {
-			fmt.Printf("  [%s] Ignore\n", checker.CheckTasks[i].Name)
+			fmt.Printf("  [%s] Checking for %s\n", blue("Ignore"), checker.CheckTasks[i].Name)
 		}
 	}
 	fmt.Println()

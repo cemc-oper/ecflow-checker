@@ -1,7 +1,7 @@
 package node_checker
 
 import (
-	"log"
+	"fmt"
 )
 
 func RunCheckTasks() {
@@ -25,15 +25,14 @@ func RunCheckTasks() {
 }
 
 func RunNodeChecker(checker *NodeChecker) {
-	if !checker.EvaluateAll() {
-		log.Printf("%s: all triggers is not fit", checker.Name)
-		return
-	}
+	result := checker.EvaluateAll()
 
-	err := checker.FetchWorkflowNode()
-	if err != nil {
-		log.Printf("%s: fetch node failed: %v", checker.Name, err)
-		return
+	if result {
+		err := checker.FetchWorkflowNode()
+		if err != nil {
+			fmt.Printf("%s: Fetching node...failed", checker.Name)
+			return
+		}
 	}
 
 	checker.CheckAll()

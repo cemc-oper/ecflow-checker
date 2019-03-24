@@ -3,7 +3,10 @@ module github.com/perillaroc/ecflow-client-go
 go 1.12
 
 require (
+	github.com/fatih/color v1.7.0
 	github.com/golang/protobuf v1.3.0
+	github.com/mattn/go-colorable v0.1.1 // indirect
+	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/perillaroc/workflow-model-go v0.0.0-20190316033913-eac04f7cff90
 	golang.org/x/net v0.0.0-20190310074541-c10a0554eabf // indirect
 	golang.org/x/sys v0.0.0-20190310054646-10058d7d4faa // indirect
