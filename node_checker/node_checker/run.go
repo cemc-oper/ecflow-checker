@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func RunCheckTasks() {
+func RunCheckTasks(configPath string) {
 	config := Config{}
 	err := config.ReadConfig("./dist/conf/nwpc_op.yml")
 	if err != nil {

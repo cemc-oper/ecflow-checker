@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/perillaroc/ecflow-client-go/node_checker/node_checker"
+	"github.com/perillaroc/ecflow-client-go/node_checker/cmd"
 )
 
 func main() {
-	node_checker.RunCheckTasks()
+	cmd.Execute()
 }
