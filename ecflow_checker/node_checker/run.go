@@ -33,7 +33,9 @@ func RunNodeChecker(checker *NodeChecker) {
 			fmt.Printf("%s: Fetching node...failed", checker.Name)
 			return
 		}
-	}
 
-	checker.CheckAll()
+		checker.CheckAll()
+	} else {
+		fmt.Printf("%s: Ignore\n", bold(checker.Name))
+	}
 }
