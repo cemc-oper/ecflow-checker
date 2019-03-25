@@ -30,7 +30,7 @@ func RunNodeChecker(checker *NodeChecker) {
 	if result {
 		err := checker.FetchWorkflowNode()
 		if err != nil {
-			fmt.Printf("%s: Fetching node...failed", checker.Name)
+			fmt.Printf("%s\n", red(fmt.Sprintf("%s: Fetching node...failed", bold(checker.Name))))
 			return
 		}
 
