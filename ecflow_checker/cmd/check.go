@@ -27,8 +27,9 @@ func init() {
 		magenta("This is an experimental tool which is under development."))
 	rootCmd.AddCommand(checkCmd)
 	checkCmd.PersistentFlags().StringVarP(
-		&checkConfigFilePath, "config-path", "c", "", "config file path")
-	checkCmd.MarkFlagRequired("config-path")
+		&checkConfigFilePath, "config-path", "c",
+		os.Getenv("ECFLOW_CHECKER_CONFIG_PATH"),
+		"config file path, or use environment variable ECFLOW_CHECKER_CONFIG_PATH")
 }
 
 func CheckCommand(configPath string) {
