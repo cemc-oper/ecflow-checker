@@ -26,5 +26,5 @@ func init() {
 
 func VersionCommand() {
 	fmt.Printf("Version %s (%s)\n", Version, GitCommit)
-	fmt.Printf("Buiding at %s\n", BuildTime)
+	fmt.Printf("Build at %s\n", BuildTime)
 }
