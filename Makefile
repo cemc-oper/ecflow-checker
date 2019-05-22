@@ -1,6 +1,6 @@
 .PHONY: ecflow_checker
 
-VERSION := v0.0.1
+VERSION := $(shell cat VERSION)
 BUILD_TIME := $(shell date --utc --rfc-3339 ns 2> /dev/null | sed -e 's/ /T/')
 GIT_COMMIT := $(shell git rev-parse --short HEAD 2> /dev/null || true)
 
