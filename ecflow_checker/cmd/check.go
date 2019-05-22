@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"github.com/perillaroc/ecflow-client-go/ecflow_checker/node_checker"
 	"github.com/spf13/cobra"
 	"log"
@@ -22,9 +21,6 @@ var checkCmd = &cobra.Command{
 var checkConfigFilePath string
 
 func init() {
-	var magenta = color.New(color.FgMagenta).SprintfFunc()
-	fmt.Printf("%s\n",
-		magenta("This is an experimental tool which is under development."))
 	rootCmd.AddCommand(checkCmd)
 	checkCmd.PersistentFlags().StringVarP(
 		&checkConfigFilePath, "config-path", "c",

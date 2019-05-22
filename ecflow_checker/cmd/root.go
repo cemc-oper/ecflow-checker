@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -15,6 +16,12 @@ It checks node status and node variables according to time triggers.`,
 
 	//Run: func(cmd *cobra.Command, args []string) {
 	//},
+}
+
+func init() {
+	var magenta = color.New(color.FgMagenta).SprintfFunc()
+	fmt.Printf("%s\n",
+		magenta("This is an experimental tool which is under development."))
 }
 
 func Execute() {
