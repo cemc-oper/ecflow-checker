@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 var checkCmd = &cobra.Command{
@@ -29,6 +30,9 @@ func init() {
 }
 
 func CheckCommand(configPath string) {
+	current := time.Now().UTC()
+	fmt.Printf("Current time is %s\n", current.Format("2006-01-02 15:04 MST"))
+
 	fmt.Printf("Config files directory: %s\n", configPath)
 	var configFilePaths []string
 
