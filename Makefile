@@ -7,8 +7,8 @@ PROJECT_URL := "github.com/perillaroc/ecflow-checker"
 
 ecflow_checker:
 	go build \
-		-ldflags "-X \"${PROJECT_URL}/ecflow_checker/cmd.Version=${VERSION}\" \
-		-X \"${PROJECT_URL}/ecflow_checker/cmd.BuildTime=${BUILD_TIME}\" \
-		-X \"${PROJECT_URL}/ecflow_checker/cmd.GitCommit=${GIT_COMMIT}\" " \
+		-ldflags "-X \"${PROJECT_URL}/cli/cmd.Version=${VERSION}\" \
+		-X \"${PROJECT_URL}/cli/cmd.BuildTime=${BUILD_TIME}\" \
+		-X \"${PROJECT_URL}/cli/cmd.GitCommit=${GIT_COMMIT}\" " \
 		-o bin/ecflow_checker \
-		ecflow_checker/main.go
+		cli/main.go
