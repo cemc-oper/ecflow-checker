@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/perillaroc/ecflow-client-go/ecflow_checker/node_checker"
+	"github.com/perillaroc/ecflow-checker/ecflow_checker/node_checker"
 	"github.com/spf13/cobra"
 	"log"
 	"os"

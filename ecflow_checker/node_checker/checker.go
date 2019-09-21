@@ -2,7 +2,7 @@ package node_checker
 
 import (
 	"fmt"
-	"github.com/perillaroc/ecflow-client-go"
+	"github.com/perillaroc/ecflow-checker"
 	"github.com/perillaroc/workflow-model-go"
 )
 
@@ -18,7 +18,7 @@ type NodeChecker struct {
 }
 
 func (checker *NodeChecker) FetchWorkflowNode() error {
-	client := ecflow_client_go.EcflowClient{Target: checker.Target}
+	client := ecflow_checker.EcflowClient{Target: checker.Target}
 	err := client.Connect()
 	if err != nil {
 		return err

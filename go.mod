@@ -1,6 +1,6 @@
-module github.com/perillaroc/ecflow-client-go
+module github.com/perillaroc/ecflow-checker
 
-go 1.12
+go 1.13
 
 require (
 	github.com/fatih/color v1.7.0

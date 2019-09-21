@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/perillaroc/ecflow-client-go"
+	"github.com/perillaroc/ecflow-checker"
 	"log"
 )
 
 func main() {
 	target := "10.40.140.18:31181"
 
-	client := ecflow_client_go.EcflowClient{
+	client := ecflow_checker.EcflowClient{
 		Target: target,
 	}
 

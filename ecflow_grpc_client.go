@@ -1,10 +1,10 @@
-package ecflow_client_go
+package ecflow_checker
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
-	pb "github.com/perillaroc/ecflow-client-go/ecflowclient"
+	pb "github.com/perillaroc/ecflow-checker/ecflowclient"
 	"github.com/perillaroc/workflow-model-go"
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/encoding/gzip"
